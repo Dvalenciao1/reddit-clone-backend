@@ -10,6 +10,7 @@ import { InteractionModule } from './interaction/interaction.module';
 import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TopicsModule } from './topics/topics.module';
 
 @Module({
   
@@ -32,6 +33,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     PostModule,
     InteractionModule,
     CommentModule,
+    TopicsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
