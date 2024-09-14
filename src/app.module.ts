@@ -11,6 +11,7 @@ import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TopicsModule } from './topics/topics.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   
@@ -34,6 +35,7 @@ import { TopicsModule } from './topics/topics.module';
     InteractionModule,
     CommentModule,
     TopicsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
