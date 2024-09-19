@@ -1,0 +1,19 @@
+services:
+  db:
+    image: mysql
+    restart: unless-stopped
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_PASSWORD: test
+      MYSQL_USER: test
+      MYSQL_DATABASE: nest
+      MYSQL_ROOT_PASSWORD: test
+    ports:
+      - 3306:3306
+
+    # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+volumes:
+  db-data:
