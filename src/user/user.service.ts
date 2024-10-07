@@ -12,7 +12,7 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    return this.userRepository.save(createUserDto);
   }
 
   findAll() {
@@ -20,7 +20,7 @@ export class UserService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.userRepository.findOne({ where: {id} });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
@@ -28,6 +28,6 @@ export class UserService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.userRepository.softDelete({id});
   }
 }
