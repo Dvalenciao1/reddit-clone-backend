@@ -21,7 +21,7 @@ import { AuthModule } from './auth/auth.module';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DATABASE_HOST,
-      port: 3306,
+      port: 3307,
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASS,
       database: process.env.DATABASE_NAME,
