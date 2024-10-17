@@ -15,8 +15,6 @@
 	"forwardPorts": [3000, 3306],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": ["npm install -g @nestjs/cli", "npm install"],
-	"postStartCommand": "npm run start:dev"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
