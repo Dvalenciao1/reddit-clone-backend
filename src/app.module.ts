@@ -14,9 +14,8 @@ import { TopicsModule } from './topics/topics.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  
   imports: [
-    ConfigModule.forRoot({envFilePath: '.env.development.local'}), 
+    ConfigModule.forRoot({ envFilePath: '.env.development.local' }),
     TypeOrmModule.forFeature(),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -28,7 +27,6 @@ import { AuthModule } from './auth/auth.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: true,
-      logging: ['error']
     }),
     UserModule,
     PostModule,

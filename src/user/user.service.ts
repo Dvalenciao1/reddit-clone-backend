@@ -11,16 +11,17 @@ export class UserService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
-  create(createUserDto: CreateUserDto) {
-    return this.userRepository.save(createUserDto);
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const user = await this.userRepository.save(createUserDto);
+    return user;
   }
 
   findAll() {
     return this.userRepository.find();
   }
 
-  findOne(id: number) {
-    return this.userRepository.findOne({ where: {id} });
+  findOne(email: string) {
+    return this.userRepository.findOne({ where: { email } });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
@@ -28,6 +29,6 @@ export class UserService {
   }
 
   remove(id: number) {
-    return this.userRepository.softDelete({id});
+    return this.userRepository.softDelete({ id });
   }
 }
