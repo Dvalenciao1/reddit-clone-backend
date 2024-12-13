@@ -20,8 +20,8 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  findOne(email: string) {
-    return this.userRepository.findOne({ where: { email } });
+  async findOne(email: string) {
+    return await this.userRepository.findOne({ where: { email } });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

@@ -10,3 +10,14 @@ export class UserSignUpSerializer {
   @Exclude()
   password: string;
 }
+
+export class UserLoginSerializer {
+  @Expose()
+  id: string;
+  @Expose()
+  email: string;
+  @Expose()
+  username: string;
+  @Exclude()
+  password: string;
+}
