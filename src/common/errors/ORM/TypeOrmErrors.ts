@@ -8,6 +8,8 @@ interface ErrorDetails {
 export class TypeORMExceptions<T extends Error = Error> extends TypeORMError {
   readonly driverError: T;
   readonly errorDetails: ErrorDetails;
+  readonly errno: number;
+  readonly sqlState: number;
 
   constructor(driverError: T, { status, code }: ErrorDetails) {
     super();
