@@ -12,11 +12,11 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TopicsModule } from './topics/topics.module';
 import { AuthModule } from './auth/auth.module';
+import { WebsocketsModule } from './websockets/websockets.module';
 
 @Module({
-  
   imports: [
-    ConfigModule.forRoot({envFilePath: '.env.development.local'}), 
+    ConfigModule.forRoot({ envFilePath: '.env.development.local' }),
     TypeOrmModule.forFeature(),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -28,7 +28,6 @@ import { AuthModule } from './auth/auth.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: true,
-      logging: ['error']
     }),
     UserModule,
     PostModule,
@@ -36,6 +35,7 @@ import { AuthModule } from './auth/auth.module';
     CommentModule,
     TopicsModule,
     AuthModule,
+    WebsocketsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

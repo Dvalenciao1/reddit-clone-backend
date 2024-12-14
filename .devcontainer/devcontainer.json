@@ -19,6 +19,8 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 
+	"postCreateCommand": ["npm install -g @nestjs/cli", "npm install"]
+
 	// Configure tool-specific properties.
 	// "customizations": {},
 

@@ -1,26 +1,49 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/signup.dto';
-import { UpdateAuthDto } from './dto/login.dto';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { SignUpDto } from './dto/signup.dto';
+import { LoginDto } from './dto/login.dto';
+import { UserService } from 'src/user/user.service';
+import { UserLoginSerializer, UserSignUpSerializer } from './sereializer/user.serializer';
+import { plainToClass, ClassConstructor } from 'class-transformer';
+import { TypeORMExceptions } from 'src/common/errors/ORM/TypeOrmErrors';
+import { hashing } from './auth';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+  constructor(
+    private readonly userService: UserService,
+    private readonly hash: hashing,
+    private readonly jwtService: JwtService,
+  ) {}
+
+  async singUp(signUpDto: SignUpDto): Promise<UserSignUpSerializer> {
+    const hashEncrypt = await this.hash.encryptPassword(signUpDto.password);
+    const signUp = await this.userService.create({ ...signUpDto, password: hashEncrypt });
+    const data = this.serializeUserData(signUp, UserSignUpSerializer);
+    return data;
   }
 
-  findAll() {
-    return `This action returns all auth`;
+  async login(loginDto: LoginDto): Promise<{ data: UserLoginSerializer; accessToken: string }> {
+    const userMatch = await this.userService.findOne(loginDto);
+
+    if (!userMatch) throw new NotFoundException('User not found');
+
+    const isPassword = await this.hash.comparePassword(loginDto.password, userMatch.password);
+    if (!isPassword) throw new UnauthorizedException('Password incorrect');
+
+    const userData = this.serializeUserData(userMatch, UserLoginSerializer);
+
+    const token = await this.generateToken(userData);
+    return { data: userData, ...token };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
+  serializeUserData<T>(data: any, classSerializer: ClassConstructor<T>): T {
+    return plainToClass(classSerializer, data, { excludeExtraneousValues: true });
   }
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  async generateToken(user: UserLoginSerializer): Promise<{ accessToken: string }> {
+    const payload = { username: user.username, email: user.email };
+    const accessToken = await this.jwtService.signAsync(payload);
+    return { accessToken };
   }
 }

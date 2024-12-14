@@ -4,6 +4,7 @@ import { Comment } from 'src/comment/entities/comment.entity'; // Add this impor
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   Index,
   OneToMany,
@@ -15,30 +16,29 @@ import {
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: number;
-  
-  @Index({ unique: true })
-  @Column({type: String, nullable: false})
+
+  @Index('email', { unique: true })
+  @Column({ type: String, nullable: false })
   email: string;
-  
-  @Index({ unique: true })
-  @Column({type: String, nullable: false})
+
+  @Column({ type: String, nullable: false })
   username: string;
 
-  @Column({type: String, nullable: false})
-  pasword: string;
+  @Column({ type: String, nullable: false })
+  password: string;
 
-  @Column({ type: Boolean, nullable: false, default: false })
-  deleted: boolean;
-  
-  @OneToMany(() => Post, post => post.user)
+  @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
-  
-  @OneToMany(() => Comment, comment => comment.user)
+
+  @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
-  
-  @OneToMany(() => Interaction, interaction => interaction.user)
+
+  @OneToMany(() => Interaction, (interaction) => interaction.user)
   interactions: Interaction[];
-  
+
+  @DeleteDateColumn()
+  deletedAt: Date;
+
   @CreateDateColumn()
   createdAt: Date;
 
