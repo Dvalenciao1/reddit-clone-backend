@@ -1,11 +1,10 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { SignUpDto } from './dto/signup.dto';
-import { LoginDto } from './dto/login.dto';
+import { SignUpDto } from '@/auth/dto/signup.dto';
+import { LoginDto } from '@/auth/dto/login.dto';
 import { UserService } from 'src/user/user.service';
-import { UserLoginSerializer, UserSignUpSerializer } from './sereializer/user.serializer';
+import { UserLoginSerializer, UserSignUpSerializer } from '@/auth/sereializer/user.serializer';
 import { plainToClass, ClassConstructor } from 'class-transformer';
-import { TypeORMExceptions } from 'src/common/errors/ORM/TypeOrmErrors';
-import { hashing } from './auth';
+import { hashing } from '@/auth/encryption';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()

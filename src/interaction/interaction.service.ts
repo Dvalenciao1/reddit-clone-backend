@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateInteractionDto } from './dto/create-interaction.dto';
-import { UpdateInteractionDto } from './dto/update-interaction.dto';
+import { CreateInteractionDto } from '@/interaction/dto/create-interaction.dto';
+import { UpdateInteractionDto } from '@/interaction/dto/update-interaction.dto';
 
 @Injectable()
 export class InteractionService {
