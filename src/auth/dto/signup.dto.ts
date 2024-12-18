@@ -18,9 +18,4 @@ export class SignUpDto extends PartialType(CreateUserDto) {
   @IsNotEmpty()
   @IsStrongPassword()
   password: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  username: string;
 }

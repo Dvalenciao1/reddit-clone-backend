@@ -18,7 +18,7 @@ export class UserService {
       const user = await this.userRepository.save(createUserDto);
       return user;
     } catch (error) {
-      if (error instanceof TypeORMExceptions)
+      if (error instanceof TypeORMExceptions || error.name === 'QueryFailedError')
         throw new TypeORMExceptions(error.driverError, { status: error.errno, code: error.sqlState });
     }
   }

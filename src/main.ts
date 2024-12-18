@@ -6,8 +6,10 @@ import { TypeORMErrorFilter } from '@/common/filters/TypeORMErrors.filter';
 import { configEnv } from '@/config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
   let logger = new Logger(NestApplication.name);
+  const app = await NestFactory.create(AppModule);
+  const corsOptions = {  };
+  app.enableCors();
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

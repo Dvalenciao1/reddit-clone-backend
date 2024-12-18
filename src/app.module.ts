@@ -1,6 +1,3 @@
-//Main controllers, services and module
-import { AppController } from '@/app.controller';
-import { AppService } from '@/app.service';
 import { Module } from '@nestjs/common';
 // Config env files
 import { configEnvDB } from '@/config';
@@ -36,7 +33,5 @@ import { WebsocketsModule } from '@/websockets/websockets.module';
     AuthModule,
     WebsocketsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
