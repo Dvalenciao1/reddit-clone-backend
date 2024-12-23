@@ -24,14 +24,12 @@ export class AuthService {
 
   async login(loginDto: LoginDto): Promise<{ data: UserLoginSerializer; accessToken: string }> {
     const userMatch = await this.userService.findOne(loginDto);
-
-    if (!userMatch) throw new NotFoundException('User not found');
-
     const isPassword = await this.hash.comparePassword(loginDto.password, userMatch.password);
+
+    //throwing error if auth is wrong
     if (!isPassword) throw new UnauthorizedException('Password incorrect');
 
     const userData = this.serializeUserData(userMatch, UserLoginSerializer);
-
     const token = await this.generateToken(userData);
     return { data: userData, ...token };
   }

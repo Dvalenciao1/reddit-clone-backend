@@ -11,7 +11,7 @@ export class HTTPExceptionFilter implements ExceptionFilter {
     const status = exception.getStatus();
     const msg = exception.getResponse();
 
-    this.logger.error(`Status: ${status} Error:${JSON.stringify(msg)}`);
+    this.logger.error(`[Status: ${status}] - Error:${JSON.stringify(msg)}`);
     response.status(status).json({ time: new Date().toISOString(), path: request.url, error: msg });
   }
 }
