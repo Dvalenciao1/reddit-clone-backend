@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { InteractionService } from './interaction.service';
-import { CreateInteractionDto } from './dto/create-interaction.dto';
-import { UpdateInteractionDto } from './dto/update-interaction.dto';
+import { InteractionService } from '@/interaction/interaction.service';
+import { CreateInteractionDto } from '@/interaction/dto/create-interaction.dto';
+import { UpdateInteractionDto } from '@/interaction/dto/update-interaction.dto';
 
 @Controller('interaction')
 export class InteractionController {

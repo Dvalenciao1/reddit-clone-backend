@@ -1,11 +1,10 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { SignUpDto } from './dto/signup.dto';
-import { LoginDto } from './dto/login.dto';
+import { SignUpDto } from '@/auth/dto/signup.dto';
+import { LoginDto } from '@/auth/dto/login.dto';
 import { UserService } from 'src/user/user.service';
-import { UserLoginSerializer, UserSignUpSerializer } from './sereializer/user.serializer';
+import { UserLoginSerializer, UserSignUpSerializer } from '@/auth/sereializer/user.serializer';
 import { plainToClass, ClassConstructor } from 'class-transformer';
-import { TypeORMExceptions } from 'src/common/errors/ORM/TypeOrmErrors';
-import { hashing } from './auth';
+import { hashing } from '@/auth/encryption';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -25,14 +24,12 @@ export class AuthService {
 
   async login(loginDto: LoginDto): Promise<{ data: UserLoginSerializer; accessToken: string }> {
     const userMatch = await this.userService.findOne(loginDto);
-
-    if (!userMatch) throw new NotFoundException('User not found');
-
     const isPassword = await this.hash.comparePassword(loginDto.password, userMatch.password);
+
+    //throwing error if auth is wrong
     if (!isPassword) throw new UnauthorizedException('Password incorrect');
 
     const userData = this.serializeUserData(userMatch, UserLoginSerializer);
-
     const token = await this.generateToken(userData);
     return { data: userData, ...token };
   }
