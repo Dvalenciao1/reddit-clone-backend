@@ -1,10 +1,11 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus, Logger } from '@nestjs/common';
 import { TypeORMExceptions } from '@/common/errors/ORM/TypeOrmErrors';
 import { TypeORMError } from 'typeorm';
+import { LoggerService } from '@/logger/logger.service';
 
 @Catch(TypeORMError)
 export class TypeORMErrorFilter implements ExceptionFilter {
-  private readonly logger = new Logger(TypeORMErrorFilter.name);
+  private readonly logger = new LoggerService();
 
   catch(exception: TypeORMExceptions, host: ArgumentsHost) {
     const ctx = host.switchToHttp();

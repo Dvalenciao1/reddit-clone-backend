@@ -1,15 +1,17 @@
-import { NestApplication, NestFactory } from '@nestjs/core';
+import { NestApplication, NestApplicationContext, NestFactory } from '@nestjs/core';
 import { AppModule } from '@/app.module';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { HTTPExceptionFilter } from '@/common/filters/HttpExceptions.filter';
 import { TypeORMErrorFilter } from '@/common/filters/TypeORMErrors.filter';
 import { configEnv } from '@/config';
 import { LoggerHTTPInterceptor } from './common/interceptor/logger.interceptor';
+import { LoggerService } from './logger/logger.service';
 
 async function bootstrap() {
-  let logger = new Logger(NestApplication.name);
-  const app = await NestFactory.create(AppModule);
+  const logger = new LoggerService(NestApplication.name);
+  const app = await NestFactory.create(AppModule, { logger: logger });
   const corsOptions = { origin: ['http://localhost:3001'] };
+
   app.enableCors(corsOptions);
   app.useGlobalInterceptors(new LoggerHTTPInterceptor());
   app.useGlobalPipes(
@@ -22,7 +24,8 @@ async function bootstrap() {
   app.useGlobalFilters(new HTTPExceptionFilter(), new TypeORMErrorFilter());
   app.setGlobalPrefix(configEnv.prefix);
   await app.listen(3000, () => {
-    logger.verbose(`Server is running on ${configEnv.host}:${configEnv.port}/${configEnv.prefix} \n`);
+    logger.log(`Server is running on ${configEnv.host}:${configEnv.port}/${configEnv.prefix} \n`);
+    
   });
 }
 bootstrap();

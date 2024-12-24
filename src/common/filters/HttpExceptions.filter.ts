@@ -1,8 +1,9 @@
+import { LoggerService } from '@/logger/logger.service';
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Logger } from '@nestjs/common';
 
 @Catch(HttpException)
 export class HTTPExceptionFilter implements ExceptionFilter {
-  private readonly logger = new Logger(HTTPExceptionFilter.name);
+  private readonly logger = new LoggerService(HTTPExceptionFilter.name);
 
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
