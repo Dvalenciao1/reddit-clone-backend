@@ -1,9 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  SerializeOptions,
+  ClassSerializerInterceptor,
+  UseInterceptors,
+} from '@nestjs/common';
 import { PostService } from '@/post/post.service';
 import { CreatePostDto } from '@/post/dto/create-post.dto';
 import { UpdatePostDto } from '@/post/dto/update-post.dto';
+import { PostSerializer } from './serializer/post.serializer';
 
 @Controller('post')
+@SerializeOptions({ strategy: 'excludeAll', type: PostSerializer })
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
@@ -13,6 +26,7 @@ export class PostController {
   }
 
   @Get()
+  @UseInterceptors(ClassSerializerInterceptor)
   findAll() {
     return this.postService.findAll();
   }
