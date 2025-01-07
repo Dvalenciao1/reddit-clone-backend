@@ -13,7 +13,7 @@ export class LoggerHTTPInterceptor implements NestInterceptor {
     const { statusCode: status } = res;
     const logger = new LoggerService(className);
 
-    logger.log(`[${method}] - Enter Message ${JSON.stringify({ url, function1: methodName })} `);
+    logger.log(`[${method}] - Enter Message ${JSON.stringify({ url, function: methodName })} `);
 
     return next.handle().pipe(
       tap(() => {

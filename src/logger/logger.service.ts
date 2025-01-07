@@ -23,21 +23,22 @@ export class LoggerService {
         level,
         message,
         trace,
-        sizePadding,
+        paddingTime,
+        paddingClass,
       }: {
         timestamp: string;
         level: string;
         message: string;
         trace: string;
-        sizePadding: number;
+        paddingTime: number;
+        paddingClass: number;
       }) => {
         const className = trace !== 'undefined' && trace ? trace : this.context;
         const levelUpperCase = level.toUpperCase();
         const customLevelColor = `${Colors[levelUpperCase]} ${level.toUpperCase()} ${Colors.RESET}`;
         const classFormatter = `\x1b[33m[${className}]${Colors.RESET}`;
-        const padding = sizePadding;
 
-        return ` ${String(timestamp).padEnd(padding)}${customLevelColor} ${classFormatter} ${message}`;
+        return ` ${String(timestamp).padEnd(paddingTime)}${customLevelColor} ${classFormatter.padEnd(paddingClass)} ${message}`;
       },
     );
 
@@ -98,19 +99,19 @@ export class LoggerService {
 
   log(message: string, trace?: string) {
     const messageWithColor = `${Colors.INFO} ${message} ${Colors.RESET}`;
-    this.loggerInfo.info(messageWithColor, { trace, sizePadding: 25 });
+    this.loggerInfo.info(messageWithColor, { trace, paddingTime: 25, paddingClass: 32 });
   }
 
   error(message: string, trace?: string) {
     const messageWithColor = `${Colors.ERROR} ${message} ${Colors.RESET}`;
-    this.loggerError.error(messageWithColor, { data: trace ? trace : this.context, sizePadding: 24 });
+    this.loggerError.error(messageWithColor, { data: trace ? trace : this.context, paddingTime: 24, paddingClass: 32 });
   }
   warn(message: string, trace?: string) {
     const messageWithColor = `${Colors.ERROR} ${message} ${Colors.RESET}`;
-    this.loggerWarn.warn(messageWithColor, { data: trace ? trace : this.context, sizePadding: 25 });
+    this.loggerWarn.warn(messageWithColor, { data: trace ? trace : this.context, paddingTime: 25, paddingClass: 32 });
   }
   debug(message: string, trace?: string) {
     const messageWithColor = `${Colors.DEBUG} ${message} ${Colors.RESET}`;
-    this.loggerDebug.debug(messageWithColor, { data: trace ? trace : this.context, sizePadding: 24 });
+    this.loggerDebug.debug(messageWithColor, { data: trace ? trace : this.context, paddingTime: 24, paddingClass: 32 });
   }
 }
