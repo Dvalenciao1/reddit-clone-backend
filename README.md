@@ -27,7 +27,7 @@
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Important Deploy
-You can use [`Frontend UI`](https://github.com/Dvalenciao1/challenge-fronted)
+You can use [`Frontend UI`](https://github.com/Dvalenciao1/reddit-clone-fronted)
 
 ## Project setup
 
