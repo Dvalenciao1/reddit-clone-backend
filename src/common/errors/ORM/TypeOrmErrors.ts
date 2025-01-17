@@ -11,9 +11,10 @@ export class TypeORMExceptions<T extends Error = Error> extends TypeORMError {
   readonly errno: number;
   readonly sqlState: number;
 
-  constructor(driverError: T, ) {
+  constructor(driverError: T) {
     super();
     this.driverError = driverError;
-    
+
+    console.log('🚀 ~ file: TypeOrmErrors.ts:20 ~ driverError:', driverError);
   }
 }

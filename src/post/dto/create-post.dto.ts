@@ -1,7 +1,7 @@
 import { UserDto } from '@/user/dto/user.dto';
 
 import { Expose, Type } from 'class-transformer';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreatePostDto {
   @IsString()
@@ -9,8 +9,12 @@ export class CreatePostDto {
   title: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   content: string;
+
+  @IsString()
+  @IsOptional()
+  filename: string;
 
   @Type(() => UserDto)
   @IsNotEmpty()

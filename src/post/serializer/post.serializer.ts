@@ -21,6 +21,12 @@ export class PostSerializer {
   comments: CommentSerializer[];
 
   @Expose()
+  filename: string;
+
+  @Expose()
+  url: string;
+
+  @Expose()
   createdAt: Date;
 
   @Expose()
