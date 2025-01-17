@@ -23,6 +23,7 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto): Promise<{ data: UserLoginSerializer; accessToken: string }> {
+    console.log('login');
     const userMatch = await this.userService.findOne(loginDto);
     const isPassword = await this.hash.comparePassword(loginDto.password, userMatch.password);
 

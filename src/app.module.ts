@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TopicsModule } from '@/topics/topics.module';
 import { AuthModule } from '@/auth/auth.module';
 import { WebsocketsModule } from '@/websockets/websockets.module';
+import { MinioModule } from './minio/minio.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { WebsocketsModule } from '@/websockets/websockets.module';
     TopicsModule,
     AuthModule,
     WebsocketsModule,
+    /* MinioModule, */
   ],
 })
 export class AppModule {}

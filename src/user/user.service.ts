@@ -32,7 +32,7 @@ export class UserService {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.userRepository.softDelete({ id });
   }
 }

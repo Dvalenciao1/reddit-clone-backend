@@ -25,7 +25,6 @@ async function bootstrap() {
   app.setGlobalPrefix(configEnv.prefix);
   await app.listen(3000, () => {
     logger.log(`Server is running on ${configEnv.host}:${configEnv.port}/${configEnv.prefix} \n`);
-    
   });
 }
 bootstrap();
