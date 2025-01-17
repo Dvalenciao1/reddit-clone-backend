@@ -31,6 +31,11 @@
 ```bash
 $ npm install
 ```
+## Compile and run the Docker project
+```bash
+# Run Backend on the container
+$ docker compose up
+```
 
 ## Compile and run the project
 
